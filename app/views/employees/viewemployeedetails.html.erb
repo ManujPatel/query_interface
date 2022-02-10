@@ -1,0 +1,100 @@
+<h1>Employee Details  </h1>
+<table >
+  <tr><td>List Employees having age > 20 and < 40:
+  <ul>
+    <% Employee.where('age > 20 and age <40').each do |employee| %>
+      <li><%= employee.first_name %></li>
+    <%end%>
+  </ul>
+  </td></tr>
+  <br>
+  <tr><td>List Employees which are full time Avaialable:
+  <ul>
+    <%Employee.where(full_time_available:true).each do |employee|%>
+      <li><%= employee.first_name %></li>
+    <%end%>
+  </ul>
+  </td></tr>
+  <tr><td>List employees which have exact 5 number of orders and age>25:
+    <ul>
+    <%Employee.where('no_of_order=5 and age>25').each do|employee|%>
+    < li><%= employee.first_name %></li>
+    <%end%>
+    </ul>   
+  </td></tr>
+  <br>
+  <tr><td>List employees which are created before today:
+  <ul>
+      <%Employee.where("created_at < ?", 1.days.ago).each do|employee| %>
+        <li><%= employee.first_name %></li>
+    <%end%>
+  </ul>      
+  </td></tr>
+  <br>
+  <tr><td>List employees which have exact 5 number of orders and age<25:
+  <ul>
+    <%Employee.where('no_of_order=5 and age<25').each do employee%>
+      <li><%= employee.first_name %></li>
+    <%end%>
+  </ul>    
+  </td></tr>
+  <tr>
+    <td>List employees in descending order by age<25:
+    <ul>
+        <% Employee.where('age < 25').order('age desc').each do |employee|%> 
+        <li><%="first_name: #{employee.first_name} and age: #{employee.age}"%></li>
+        <% end %>
+      </ul>  
+    </td>
+  </tr>
+  <tr>
+  <br>
+    <td>List employees in ascending order by number of order:
+      <ul>
+        <% Employee.order(:no_of_order).each do |employee|%> 
+        <li><%="first_name: #{employee.first_name} and no of order: #{employee.no_of_order}"%></li>
+        <% end %>
+      </ul>
+    </td>
+  </tr>
+  <tr><td>
+    List employees having salary>45000:
+    <ul>
+    <%Employee.where('salary > 45000').each do|employee|%>
+      <li><%= employee.first_name %></li>
+    <%end%>
+    </ul>
+    </td></tr>
+  <tr>
+    <td>Group employees by no_of_order with them and display employee with no_of_order>5</td>
+    <td><%=Employee.group(:no_of_order).having("Count(*)>5").pluck(:no_of_order)%></td>
+  </tr>
+  <tr>
+    <td>Employee.where('age > 30').order('age desc').unscope(:order)</td>
+    <td><%=Employee.where('age > 30').order('age desc').unscope(:order).pluck(:first_name)%></td>
+  </tr>
+  <tr>
+    <td>Employee.where('no_of_order > 2').order('no_of_order desc').only(:order)</td>
+    <td><%=Employee.where('no_of_order > 2').order('no_of_order desc').only(:order).pluck(:id)%></td>
+  </tr>
+  <tr>
+  <br>
+    <td>Employee.select(:id).reselect(:id,:first_name)
+    
+      <ul>
+        <% Employee.select(:id).reselect(:id,:first_name).each do |employee|%> 
+        <li><%="id : #{employee.id} and first_name: #{employee.first_name}"%></li>
+        <% end %>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Employee.order('id desc').reorder(:id)</td>
+    <td><%=Employee.order('id desc').reorder(:id).pluck(:id)%></td>
+  </tr>
+  <tr>
+    <td>Employee.where("age<30").reverse_order</td>
+    <td><%=Employee.where("age<30").reverse_order.pluck(:id)%></td>
+  </tr>
+    
+    
