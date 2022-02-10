@@ -19,7 +19,7 @@
         <h3 style="color:green;"><%= msg %></h3>
       <% end %>
     <% end %>
-    <h4>Employee details </h4>
+    
     <table>
       <tr><td>First Name</td><td><%=@employee.first_name %></td></tr>
       <tr><td>Last Name</td><td><%=@employee.last_name %></td></tr>
@@ -31,12 +31,14 @@
         Yes
       <%end%>
       <%if not @employee.full_time_available%>
-       No
+        No
       <%end%>
       </td></tr>
       <tr><td>Salary</td><td><%=@employee.salary %></td></tr>
     </table>
-    <%= link_to "Add a New Employee", new_employee_path %>
+    <br><br>
+    <%= button_to "Edit Employee",  edit_employee_path , method: :get%>
+    <%= button_to "Delete Employee",  employee_path , method: :delete%>
   </center>
 </body>
 
